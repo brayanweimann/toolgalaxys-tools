@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Age Test | Toolgalaxys</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f3f3;
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      animation: fadeIn 1s ease;
+    }
+    button {
+      background-color: #6200ea;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .question, .result {
+      display: none;
+      margin-top: 20px;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      background-color: #03dac6;
+    }
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1e88e5;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🧠 What's Your Mental Age?</h2>
+    <p>Think you're mature? Or a fun-loving kid inside? Let's find out!</p>
+    <button onclick="startQuiz()">Start the Test</button>
+
+    <div id="questionBox" class="question">
+      <p id="questionText"></p>
+      <div class="answers" id="answers"></div>
+    </div>
+
+    <div id="resultBox" class="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What do you do when something goes wrong?",
+        a: ["Panic", "Stay calm and think", "Blame someone", "Laugh it off"],
+        s: [16, 30, 22, 18]
+      },
+      {
+        q: "Your ideal weekend is?",
+        a: ["Gaming all day", "Hiking & nature", "Netflix & snacks", "Reading a book"],
+        s: [18, 30, 24, 28]
+      },
+      {
+        q: "Pick a food:",
+        a: ["Pizza", "Green salad", "Ice cream", "Sushi"],
+        s: [18, 30, 20, 28]
+      }
+    ];
+    let current = 0;
+    let score = 0;
+
+    function startQuiz() {
+      document.querySelector('button').style.display = 'none';
+      document.getElementById('questionBox').style.display = 'block';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById('questionText').innerText = q.q;
+      const answers = document.getElementById('answers');
+      answers.innerHTML = '';
+      q.a.forEach((text, i) => {
+        const btn = document.createElement('button');
+        btn.innerText = text;
+        btn.onclick = () => {
+          score += q.s[i];
+          current++;
+          if (current < questions.length) {
+            showQuestion();
+          } else {
+            showResult();
+          }
+        };
+        answers.appendChild(btn);
+      });
+    }
+
+    function showResult() {
+      document.getElementById('questionBox').style.display = 'none';
+      const avg = Math.round(score / questions.length);
+      document.getElementById('resultBox').style.display = 'block';
+      document.getElementById('resultBox').innerText = `🎉 Your Mental Age is: ${avg}`;
+    }
+  </script>
+</body>
+</html>
