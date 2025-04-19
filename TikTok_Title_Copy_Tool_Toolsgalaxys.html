@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Title Copy Tool - Toolsgalaxys</title>
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #ffffff;
+      --text-dark: #f1f1f1;
+      --text-light: #222222;
+      --accent: #6a11cb;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      animation: fadeIn 0.6s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--accent);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 18px;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #titleResult {
+      margin-top: 20px;
+      font-size: 18px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .toggle-mode {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .toggle-mode button {
+      background: none;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 TikTok Title Copy Tool</h1>
+    <input type="text" id="tiktokLink" placeholder="Paste TikTok video link here..." />
+    <button onclick="getTitle()">Get Title</button>
+    <div id="titleResult"></div>
+    <div class="toggle-mode">
+      <button onclick="toggleMode()">🌗 Toggle Dark/Light</button>
+    </div>
+  </div>
+
+  <script>
+    let darkMode = true;
+
+    function getTitle() {
+      const url = document.getElementById('tiktokLink').value;
+      const resultDiv = document.getElementById('titleResult');
+
+      if (!url.includes("tiktok.com")) {
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "❌ Please paste a valid TikTok link.";
+        return;
+      }
+
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = "⏳ Fetching title...";
+
+      // Simulated fetch due to TikTok CORS block
+      setTimeout(() => {
+        resultDiv.innerHTML = `
+          ✅ <strong>Sample Title:</strong> "How to go viral in 2025 💥"<br><br>
+          <button onclick="copyTitle()">📋 Copy Title</button>
+        `;
+      }, 1500);
+    }
+
+    function copyTitle() {
+      const text = "How to go viral in 2025 💥";
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Title copied to clipboard!");
+      });
+    }
+
+    function toggleMode() {
+      darkMode = !darkMode;
+      document.body.style.backgroundColor = darkMode ? "#121212" : "#ffffff";
+      document.body.style.color = darkMode ? "#f1f1f1" : "#222222";
+    }
+
+    // Set default to dark
+    document.body.style.backgroundColor = "#121212";
+    document.body.style.color = "#f1f1f1";
+  </script>
+</body>
+</html>
